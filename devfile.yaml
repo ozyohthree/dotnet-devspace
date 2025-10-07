@@ -1,22 +1,8 @@
 schemaVersion: 2.2.2
 metadata:
-  name: dot-net-workspace
+  name: dotnet-workspace
 components:
   - name: tools
-    # Note This Devfile only works on OCP 4.18+ with user namespace support enabled - https://github.com/cgruver/ocp-4-18-nested-container-tech-preview
-    # attributes:
-    #   pod-overrides:
-    #     metadata:
-    #       annotations:
-    #         # Ask for /dev/fuse and /dev/net/tun to be mapped into this Pod
-    #         io.kubernetes.cri-o.Devices: "/dev/fuse,/dev/net/tun"
-    #     spec:
-    #       # Instruct the container runtime to create a new user namespace for the containers in this Pod.
-    #       hostUsers: false
-    #   container-overrides: 
-    #     securityContext:
-    #       # Ask for an unmasked /proc to be available to this container
-    #       procMount: Unmasked
     container:
       image: quay.io/cgruver0/che/dot-net:ubi
       mountSources: true
@@ -30,7 +16,7 @@ components:
         - name: HOME
           value: "/projects/home"
         - name: VSCODE_DEFAULT_WORKSPACE
-          value: "/projects/dev-spaces-dotnet/dev-spaces-dotnet.code-workspace"
+          value: "/projects/dotnet-devspace/dotnet-devspace.code-workspace"
         - name: ASPNETCORE_URLS
           value: "http://0.0.0.0:5000"
       endpoints:
@@ -73,7 +59,7 @@ commands:
     exec:
       label: 1.Update dependencies
       component: tools
-      workingDir: /projects/dev-spaces-dotnet/src
+      workingDir: /projects/dotnet-devspace/src
       commandLine: "dotnet restore"
       group:
         kind: build
@@ -81,7 +67,7 @@ commands:
     exec:
       label: 2.Build
       component: tools
-      workingDir: /projects/dev-spaces-dotnet/src
+      workingDir: /projects/dotnet-devspace/src
       commandLine: "dotnet build"
       group:
         kind: build
@@ -89,7 +75,7 @@ commands:
     exec:
       label: 3.Test
       component: tools
-      workingDir: /projects/dev-spaces-dotnet/test
+      workingDir: /projects/dotnet-devspace/test
       commandLine: "dotnet test"
       group:
         kind: run
@@ -97,7 +83,7 @@ commands:
     exec:
       label: 4.Run
       component: tools
-      workingDir: /projects/dev-spaces-dotnet/src
+      workingDir: /projects/dotnet-devspace/src
       commandLine: "dotnet run"
       group:
         kind: run
@@ -105,7 +91,7 @@ commands:
     exec:
       label: 5.Run (Hot Reload)
       component: tools
-      workingDir: /projects/dev-spaces-dotnet/src
+      workingDir: /projects/dotnet-devspace/src
       commandLine: "dotnet watch run"
       group:
         kind: run
