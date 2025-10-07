@@ -1,8 +1,8 @@
 {
 	"folders": [
 		{
-			"name": "dev-spaces-dotnet",
-			"path": "/projects/dev-spaces-dotnet"
+			"name": "dotnet-devspace",
+			"path": "/projects/dotnet-devspace"
 		}
 	],
 	"extensions": {
