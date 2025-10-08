@@ -47,6 +47,36 @@ components:
       env:
       - name: HOME
         value: "/projects/home"
+  - name: sqlserver-container1
+    container:
+      image: mcr.microsoft.com/mssql/rhel/server:2022-CU17-rhel-9.1         
+      memoryLimit: '2Gi'
+      memoryRequest: '2Gi'
+      env:
+        - name: MSSQL_PID
+          value: "Developer"
+        - name: ACCEPT_EULA
+          value: "Y"
+        - name: MSSQL_SA_PASSWORD
+          value: "P@ssword1"
+      volumeMounts:
+        - name: mssql-db
+          path: /var/opt/mssql
+      endpoints:
+        - exposure: internal
+          name: 'sqlsvr-1431'
+          targetPort: 1431   
+        - exposure: internal
+          name: 'sqlsvr-1433'
+          protocol: https
+          targetPort: 1433
+        - exposure: internal
+          name: 'sqlsvr-1434'
+          protocol: https
+          targetPort: 1434   
+  - name: mssql-db
+    volume:
+      size: 2Gi      
 events:
   preStart:
     - prep-workspace
