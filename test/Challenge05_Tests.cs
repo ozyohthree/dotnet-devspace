@@ -68,6 +68,16 @@ public class Challenge05_Tests
         Assert.Equal("Index [20] is out of bounds for \"OpenShift\"\n", result);
     }
 
+    /* In the mssql-container terminal, run these commands to set up the test DB and table:
+    $ /opt/mssql-tools18/bin/sqlcmd -C -S localhost -U sa -P P@ssword1
+    > USE TABLE TESTDB;
+    > CREATE TABLE dbo.Inventory (id INT,name NVARCHAR (50),quantity INT,PRIMARY KEY (id));
+    > INSERT INTO dbo.Inventory VALUES (1, 'banana', 150); INSERT INTO dbo.Inventory VALUES (2, 'orange', 154);
+    > GO
+    > SELECT * FROM dbo.Inventory;
+    > SELECT * FROM dbo.Inventory WHERE quantity > 151;
+    > EXIT
+    */
     [Fact(DisplayName = "Connects to MSSQL 'test' DB and does SELECT *")]
     public void ConnectToMssqlAndSelectAll()
     {
