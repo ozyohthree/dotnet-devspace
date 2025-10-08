@@ -4,7 +4,7 @@ metadata:
 components:
   - name: tools
     container:
-      image: quay.io/cgruver0/che/dot-net:ubi
+      image: quay.io/devspaces/dotnet-90:9.0-fedora-20250415-095811
       mountSources: true
       cpuRequest: 50m
       cpuLimit: 1000m
