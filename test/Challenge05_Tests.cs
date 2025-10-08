@@ -67,4 +67,20 @@ public class Challenge05_Tests
         string result = controller.ChallengeMethod("OpenShift", 20);
         Assert.Equal("Index [20] is out of bounds for \"OpenShift\"\n", result);
     }
+
+    [Fact(DisplayName = "Connects to MSSQL 'test' DB and does SELECT *")]
+    public void ConnectToMssqlAndSelectAll()
+    {
+        // Connection string for local SQL Server
+        var connectionString = "Server=localhost,1433;Database=test;User Id=sa;Password=P@ssword1;TrustServerCertificate=True;";
+        using var connection = new SqlConnection(connectionString);
+        connection.Open();
+
+        // Use INFORMATION_SCHEMA.TABLES for a generic SELECT *
+        using var command = new SqlCommand("SELECT * FROM dbo.Inventory", connection);
+        using var reader = command.ExecuteReader();
+
+        // Assert that at least one row is returned
+        Assert.True(reader.HasRows, "No tables found in the database.");
+    }
 }
