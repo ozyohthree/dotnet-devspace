@@ -73,15 +73,7 @@ public class Challenge05_Tests
     }
 
     /* 
-        In the mssql-container terminal, run these commands to set up the test DB and table:
-        $ /opt/mssql-tools18/bin/sqlcmd -C -S localhost -U sa -P P@ssword1 -q "select @@Version"
-        > USE TABLE TESTDB;
-        > CREATE TABLE dbo.Inventory (id INT,name NVARCHAR (50),quantity INT,PRIMARY KEY (id));
-        > INSERT INTO dbo.Inventory VALUES (1, 'banana', 150); INSERT INTO dbo.Inventory VALUES (2, 'orange', 154);
-        > GO
-        > SELECT * FROM dbo.Inventory;
-        > SELECT * FROM dbo.Inventory WHERE quantity > 151;
-        > EXIT
+        Test to verify that code can connect to the MSSQL Database
     */
     private const string DbName = "TESTDB";
     private const string MasterConnectionString = "Server=localhost,1433;Database=master;User Id=sa;Password=P@ssword1;TrustServerCertificate=True;";
@@ -120,7 +112,7 @@ public class Challenge05_Tests
         Console.WriteLine("Data in Inventory table:");
         using var readCmd = new SqlCommand("SELECT id, name, quantity FROM dbo.Inventory", connection);
         using var dataReader = await readCmd.ExecuteReaderAsync();
-        if (dataReader.HasRows) 
+        if (dataReader.HasRows)
         {
             while (dataReader.Read())
             {
@@ -130,5 +122,19 @@ public class Challenge05_Tests
 
         Assert.True(dataReader.HasRows, "The query should return rows.");
     }
+
+
+    /* 
+        To Manually Test 
+        Open mssql-container terminal (Terminal > New Terminal(Select a Container)) then run these commands;
+        /opt/mssql-tools18/bin/sqlcmd -C -S localhost -U sa -P P@ssword1 -q "select @@Version"
+        > USE TABLE TESTDB;
+        > CREATE TABLE dbo.Inventory (id INT,name NVARCHAR (50),quantity INT,PRIMARY KEY (id));
+        > INSERT INTO dbo.Inventory VALUES (1, 'banana', 150); INSERT INTO dbo.Inventory VALUES (2, 'orange', 154);
+        > GO
+        > SELECT * FROM dbo.Inventory;
+        > SELECT * FROM dbo.Inventory WHERE quantity > 151;
+        > EXIT
+    */
 
 }
