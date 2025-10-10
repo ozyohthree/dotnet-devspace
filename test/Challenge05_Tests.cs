@@ -116,22 +116,19 @@ public class Challenge05_Tests
         using var insertCmd = new SqlCommand("INSERT INTO dbo.Inventory VALUES (1, 'banana', 150); INSERT INTO dbo.Inventory VALUES (2, 'orange', 154);", connection);
         await insertCmd.ExecuteNonQueryAsync();
 
-        // Print data from the table        
+        // Select and Print data from the table        
         Console.WriteLine("Data in Inventory table:");
-        using (var readCmd = new SqlCommand("SELECT id, name, quantity FROM dbo.Inventory", connection))
-        using (var dataReader = await readCmd.ExecuteReaderAsync())
+        using var readCmd = new SqlCommand("SELECT id, name, quantity FROM dbo.Inventory", connection);
+        using var dataReader = await readCmd.ExecuteReaderAsync();
+        if (dataReader.HasRows) 
         {
             while (dataReader.Read())
             {
                 Console.WriteLine($"Id: {dataReader.GetInt32(0)}, Name: {dataReader.GetString(1)}, Quantity: {dataReader.GetInt32(2)}");
             }
         }
-        
 
-        using var command = new SqlCommand("SELECT * FROM dbo.Inventory", connection);
-        using var reader = await command.ExecuteReaderAsync();
-
-        Assert.True(reader.HasRows, "The query should return rows.");
+        Assert.True(dataReader.HasRows, "The query should return rows.");
     }
 
 }
