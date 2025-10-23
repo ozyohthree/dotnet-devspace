@@ -12,7 +12,9 @@
             "ms-dotnettools.vscode-dotnet-runtime",
             "muhammad-sammy.csharp",
 			"google.geminicodeassist",
-			"google.gemini-cli-vscode-ide-companion"
+			"google.gemini-cli-vscode-ide-companion",
+			"mtxr.sqltools-driver-mssql",
+			"streetsidesoftware.code-spell-checker"
 		]
 	},
 	"settings": {
