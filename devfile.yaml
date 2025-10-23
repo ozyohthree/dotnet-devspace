@@ -7,8 +7,8 @@ components:
       # quay.io/devspaces/dotnet-90:9.0-fedora-20250415-095811
       image: quay.io/cgruver0/che/dot-net:ubi
       mountSources: true
-      cpuRequest: 50m
-      cpuLimit: 1000m
+      cpuRequest: 500m
+      cpuLimit: 1500m
       memoryRequest: 1Gi
       memoryLimit: 4Gi
       env:
